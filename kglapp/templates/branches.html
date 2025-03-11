@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KGL Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 max-w-4xl">
+        
+        <!-- Card 1 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <img src="{% static 'images/cereals.jpg' %}" alt="Card Image" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h2 class="text-xl font-semibold">Alpha Branch</h2>
+                <p class="text-gray-600">Happy shopping! May your basket always be full of goodness.</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <img src="{% static 'images/cereal.jpg' %}" alt="Card Image" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h2 class="text-xl font-semibold">Beta Branch</h2>
+                <p class="text-gray-600">Thank you for shopping with us! Your support means the world to us.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
