@@ -17,4 +17,6 @@ urlpatterns = [
     path('director', director, name="director"),
     path('manager', manager, name="manager"),
     path('attendant', attendant, name="attendant"),
+    path('create/', views.create_produce, name='create_produce'),
+    path('list/', views.produce_list, name='produce_list'),
 ]

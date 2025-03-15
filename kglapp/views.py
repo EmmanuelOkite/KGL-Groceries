@@ -3,6 +3,10 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from .forms import *
+from .models import *
+
+from django.http import JsonResponse
 
 # Create your views here.
 def home(request):
@@ -28,3 +32,18 @@ def manager(request):
 
 def attendant(request):
     return render(request, 'attendant.html')
+
+def create_produce(request):
+    if request.method == 'POST':
+        form = ProduceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('produce_list')
+    else:
+        form = ProduceForm()
+    produces = Produce.objects.all()
+    return render(request, 'add_produce.html', {'form': form, 'produces': produces})
+
+def produce_list(request):
+    produces = Produce.objects.all()
+    return render(request, 'produce_list.html', {'produces': produces})
