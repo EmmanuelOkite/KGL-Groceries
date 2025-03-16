@@ -38,11 +38,11 @@ def create_produce(request):
         form = ProduceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('produce_list')
+            return redirect('create_produce')
     else:
         form = ProduceForm()
     produces = Produce.objects.all()
-    return render(request, 'add_produce.html', {'form': form, 'produces': produces})
+    return render(request, 'create_produce.html', {'form': form, 'produces': produces})
 
 def produce_list(request):
     produces = Produce.objects.all()
