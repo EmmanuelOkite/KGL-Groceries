@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
+from django.db.models import Sum
 
 from django.http import JsonResponse
 
@@ -38,12 +39,48 @@ def create_produce(request):
         form = ProduceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('produce_list')
+            return redirect('create_produce')
     else:
         form = ProduceForm()
     produces = Produce.objects.all()
-    return render(request, 'add_produce.html', {'form': form, 'produces': produces})
+    return render(request, 'create_produce.html', {'form': form, 'produces': produces})
 
 def produce_list(request):
     produces = Produce.objects.all()
     return render(request, 'produce_list.html', {'produces': produces})
+
+def dashboard(request):
+    produce_summary = (
+        Produce.objects
+        .values('name')
+        .annotate(total_tonnage=Sum('tonnage_in_kgs'))
+    )
+
+    return render(request, 'dashboard.html', {'produce_summary': produce_summary})
+
+
+    
+
+# def selling_produce(request):
+#     if request.method == 'POST':
+#         form = SellingForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('sell_produce')
+#     else:
+#         form = SellingForm()
+#     produces = Produce.objects.all()
+#     return render(request, 'sell_produce.html', {'form': form, 'produces': produces})
+
+
+
+# def deferring_produce(request):
+#     if request.method == 'POST':
+#         form = DeferringForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('defer_produce')
+#     else:
+#         form = DeferringForm()
+#     produces = Produce.objects.all()
+#     return render(request, 'deferring_produce.html', {'form': form, 'produces': produces})

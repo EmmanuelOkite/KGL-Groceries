@@ -1,0 +1,27 @@
+{% extends  'base.html' %}
+        {% block content %}
+        <h2>Produce List</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Tonnage (kg)</th>
+            <th>Amount paid</th>
+            <th>Buyer's Name</th>
+            <th>Sales agent's name</th>
+        </tr>
+        {% for produce in produces %}
+        <tr>
+            <td>{{ produce.name }}</td>
+            <td>{{ produce.date }}</td>
+            <td>{{ produce.time_of_produce }}</td>
+            <td>{{ produce.tonnage_in_kgs }}</td>
+            <td>{{ produce.amount_paid }}</td>
+            <td>{{ produce.buyer's_name }}</td>
+            <td>{{ produce.sales_agent's_name}}</td>
+            <td>{{ produce.amount_paid }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        {% endblock %}

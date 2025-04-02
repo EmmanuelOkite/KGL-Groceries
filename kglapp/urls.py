@@ -10,7 +10,7 @@ urlpatterns = [
 from django.urls import path
 from .views import landing_page
 
-urlpatterns = [
+urlpatterns =[
     path('', landing_page, name='landing_page'), 
     path('branches',branches, name="branches"),
     path('base', base, name="base"),
@@ -19,4 +19,7 @@ urlpatterns = [
     path('attendant', attendant, name="attendant"),
     path('create/', views.create_produce, name='create_produce'),
     path('list/', views.produce_list, name='produce_list'),
-]
+    path('dashboard/', views.dashboard, name='dashboard'),
+#     path('selling/', views.selling_produce, name='selling_produce'),
+#     path('deferring/', views.deferring_produce, name= 'deferring_produce'),
+ ]

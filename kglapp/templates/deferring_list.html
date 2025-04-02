@@ -1,0 +1,32 @@
+{% extends  'base.html' %}
+        {% block content %}
+        <h2>Deferred List</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>National id</th>
+            <th>Location</th>
+            <th>Contact</th>
+            <th>Amount due</th>
+            <th>Sales agent's name</th>
+            <th>Due date</th>
+            <th>Produce Name</th>
+            <th>Tonnage</th>
+            <th>Date of dispatch</th>
+           
+        </tr>
+        {% for produce in produces %}
+        <tr>
+            <td>{{ produce.name }}</td>
+            <td>{{ national_id }}</td>
+            <td>{{ location }}</td>
+            <td>{{ produce.amount_due }}</td>
+            <td>{{ produce.sales_agent's_name}}</td>
+            <td>{{ produce.due_date }}</td>
+            <td>{{ produce.produce_name }}</td>
+            <td>{{ produce.tonnage }}</td>
+            <td>{{ produce.date_of_dispatch}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        {% endblock %}

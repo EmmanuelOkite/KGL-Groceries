@@ -1,30 +1,30 @@
 {% extends  'base.html' %}
         {% block content %}
-        <h2>Produce List</h2>
-    <table border="1">
+        <h2 style="text-align: center;">Produce List</h2>
+    <table style="margin-left: 40px; margin-right: 40px;">
         <tr>
             <th>Name</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Time</th>
+            <!-- <th>Type</th> -->
+            <!-- <th>Date</th> -->
+            <!-- <th>Time</th> -->
             <th>Tonnage (kg)</th>
             <th>Cost per kg</th>
             <th>Total Cost</th>
             <th>Dealer Name</th>
-            <th>Contact</th>
+            <!-- <th>Contact</th> -->
             <th>Price to Sell</th>
         </tr>
         {% for produce in produces %}
         <tr>
             <td>{{ produce.name }}</td>
-            <td>{{ produce.type }}</td>
-            <td>{{ produce.date }}</td>
-            <td>{{ produce.time_of_produce }}</td>
+            <!-- <td>{{ produce.type }}</td> -->
+            <!-- <td>{{ produce.date }}</td> -->
+            <!-- <td>{{ produce.time_of_produce }}</td> -->
             <td>{{ produce.tonnage_in_kgs }}</td>
             <td>{{ produce.cost_per_kg }}</td>
             <td>{{ produce.total_cost }}</td>
             <td>{{ produce.dealer_name }}</td>
-            <td>{{ produce.contact }}</td>
+            <!-- <td>{{ produce.contact }}</td> -->
             <td>{{ produce.price_to_sell }}</td>
         </tr>
         {% endfor %}
