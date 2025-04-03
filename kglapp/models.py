@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator, MinValueValidator, MinLengthValidator
+from django.utils.timezone import now
 
 class Produce(models.Model):
     PRODUCE_CHOICES = [
@@ -26,8 +27,8 @@ class Produce(models.Model):
         max_length=100,
         editable=False
     )
-    date = models.DateField()
-    time_of_produce = models.TimeField()
+    date = models.DateField(auto_now_add=True)
+    time_of_produce = models.TimeField(auto_now_add=True)
     tonnage_in_kgs = models.PositiveIntegerField(validators=[MinValueValidator(100)])
     cost_per_kg = models.PositiveIntegerField(validators=[MinValueValidator(5)])
     total_cost = models.PositiveIntegerField(editable=False)
@@ -51,3 +52,19 @@ class Produce(models.Model):
     
     def _str_(self):
         return f"{self.get_name_display()} ({self.type})"
+    
+
+class Selling(models.Model):
+    produce = models.ForeignKey('Produce', on_delete=models.CASCADE)
+    tonnage_in_kgs = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    amount_paid = models.PositiveIntegerField(validators=[MinValueValidator(5)])
+    buyer_name = models.CharField(max_length=255, validators=[MinValueValidator(2)])
+    sales_agent_name = models.CharField(max_length=255, validators=[MinValueValidator(2)])
+    date_time = models.DateTimeField(default=now)
+
+    def save(self, *args, **kwargs):
+        if self.produce.tonnage_in_kgs < self.tonnage_in_kgs:
+            raise ValueError("Not enough stock available.")
+        self.produce.tonnage_in_kgs -= self.tonnage_in_kgs
+        self.produce.save()
+        super().save(*args, **kwargs)

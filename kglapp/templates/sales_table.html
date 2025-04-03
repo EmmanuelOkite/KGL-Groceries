@@ -1,0 +1,28 @@
+{% extends  'base.html' %}
+        {% block content %}
+<table>
+    <tr>
+        <th>Produce</th>
+        <th>Tonnage (kg)</th>
+        <th>Amount Paid</th>
+        <th>Buyer</th>
+        <th>Sales Agent</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    {% for sale in sales %}
+    <tr>
+        <td>{{ sale.produce.name }}</td>
+        <td>{{ sale.tonnage_in_kgs }}</td>
+        <td>{{ sale.amount_paid }}</td>
+        <td>{{ sale.buyer_name }}</td>
+        <td>{{ sale.sales_agent_name }}</td>
+        <td>{{ sale.date_time }}</td>
+        <td>
+            <a href="{% url 'edit_sale' sale.id %}">Edit</a>
+            <a href="{% url 'delete_sale' sale.id %}" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

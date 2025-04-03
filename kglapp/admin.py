@@ -7,5 +7,5 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Produce)
-#admin.site.register(Selling)
+admin.site.register(Selling)
 #admin.site.register(Deferring)

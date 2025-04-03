@@ -59,6 +59,41 @@ def dashboard(request):
     return render(request, 'dashboard.html', {'produce_summary': produce_summary})
 
 
+def sell_produce(request):
+    if request.method == 'POST':
+        form = SellingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sales_dashboard')
+    else:
+        form = SellingForm()
+    return render(request, 'sell_produce.html', {'form': form})
+
+def sales_dashboard(request):
+    sales = Selling.objects.all()
+    return render(request, 'sales_dashboard.html', {'sales': sales})
+
+def edit_sale(request, sale_id):
+    sale = get_object_or_404(Selling, id=sale_id)
+    if request.method == 'POST':
+        form = SellingForm(request.POST, instance=sale)
+        if form.is_valid():
+            form.save()
+            return redirect('sales_dashboard')
+    else:
+        form = SellingForm(instance=sale)
+    return render(request, 'edit_sale.html', {'form': form})
+
+def delete_sale(request, sale_id):
+    sale = get_object_or_404(Selling, id=sale_id)
+    sale.delete()
+    return redirect('sales_dashboard')
+
+def sales_table(request):
+    sales = Selling.objects.all()
+    return render(request, 'sales_table.html', {'sales': sales})
+
+
     
 
 # def selling_produce(request):

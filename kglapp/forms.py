@@ -8,7 +8,10 @@ class ProduceForm(forms.ModelForm):
         model = Produce
         fields = '__all__'
 
-
+class SellingForm(forms.ModelForm):
+    class Meta:
+        model = Selling
+        fields = ['produce', 'tonnage_in_kgs', 'amount_paid', 'buyer_name', 'sales_agent_name', 'date_time']
 
 
 

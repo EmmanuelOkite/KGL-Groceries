@@ -20,6 +20,9 @@ urlpatterns =[
     path('create/', views.create_produce, name='create_produce'),
     path('list/', views.produce_list, name='produce_list'),
     path('dashboard/', views.dashboard, name='dashboard'),
-#     path('selling/', views.selling_produce, name='selling_produce'),
-#     path('deferring/', views.deferring_produce, name= 'deferring_produce'),
+    path('sell/', sell_produce, name='sell_produce'),
+    path('sales/', sales_dashboard, name='sales_dashboard'),
+    path('edit/<int:sale_id>/', edit_sale, name='edit_sale'),
+    path('delete/<int:sale_id>/', delete_sale, name='delete_sale'),
+    path('sales_table/', sales_table, name='sales_table'),
  ]
