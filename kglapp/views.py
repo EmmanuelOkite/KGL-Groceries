@@ -64,14 +64,26 @@ def sell_produce(request):
         form = SellingForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('sales_dashboard')
+            return redirect('sell_produce')
     else:
         form = SellingForm()
     return render(request, 'sell_produce.html', {'form': form})
 
 def sales_dashboard(request):
-    sales = Selling.objects.all()
-    return render(request, 'sales_dashboard.html', {'sales': sales})
+    produce_types = {
+        'Maize': 'maize',
+        'Beans': 'beans',
+        'Rice': 'rice',
+        'Cowpeas': 'cowpeas',
+        'Groundnuts': 'g-nuts',
+    }
+
+    tonnage_data = {}
+    for label, value in produce_types.items():
+        total = Selling.objects.filter(produce__name=value).aggregate(Sum('tonnage_in_kgs'))['tonnage_in_kgs__sum'] or 0
+        tonnage_data[label] = total
+
+    return render(request, 'sales_dashboard.html', {'tonnage_data': tonnage_data})
 
 def edit_sale(request, sale_id):
     sale = get_object_or_404(Selling, id=sale_id)
@@ -79,15 +91,15 @@ def edit_sale(request, sale_id):
         form = SellingForm(request.POST, instance=sale)
         if form.is_valid():
             form.save()
-            return redirect('sales_dashboard')
+            return redirect('sales_table')
     else:
         form = SellingForm(instance=sale)
-    return render(request, 'edit_sale.html', {'form': form})
+    return render(request, 'edit_sales.html', {'form': form})
 
 def delete_sale(request, sale_id):
     sale = get_object_or_404(Selling, id=sale_id)
     sale.delete()
-    return redirect('sales_dashboard')
+    return redirect('sales_table')
 
 def sales_table(request):
     sales = Selling.objects.all()

@@ -39,6 +39,7 @@ class Produce(models.Model):
             RegexValidator(r'^[a-zA-Z0-9 ]+$', 'Only alphanumeric characters allowed.')
         ],
     )
+
     contact = models.CharField(
         max_length=15,
         validators=[RegexValidator(r'^\+?\d{9,15}$', 'Enter a valid phone number.')],
@@ -58,9 +59,9 @@ class Selling(models.Model):
     produce = models.ForeignKey('Produce', on_delete=models.CASCADE)
     tonnage_in_kgs = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     amount_paid = models.PositiveIntegerField(validators=[MinValueValidator(5)])
-    buyer_name = models.CharField(max_length=255, validators=[MinValueValidator(2)])
-    sales_agent_name = models.CharField(max_length=255, validators=[MinValueValidator(2)])
-    date_time = models.DateTimeField(default=now)
+    buyer_name = models.CharField(max_length=255, validators=[MinLengthValidator(2)])
+    sales_agent_name = models.CharField(max_length=255, validators=[MinLengthValidator(2)])
+    date = models.DateField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if self.produce.tonnage_in_kgs < self.tonnage_in_kgs:
